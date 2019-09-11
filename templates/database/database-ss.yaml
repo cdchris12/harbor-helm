@@ -30,14 +30,14 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-      - name: "change-permission-of-directory"
-        image: "busybox:latest"
-        imagePullPolicy: {{ .Values.imagePullPolicy }}
-        command: ["/bin/sh"]
-        args: ["-c", "chown -R 999:999 /var/lib/postgresql/data"]
-        volumeMounts:
-        - name: database-data
-          mountPath: /var/lib/postgresql/data
+      # - name: "change-permission-of-directory"
+      #   image: "busybox:latest"
+      #   imagePullPolicy: {{ .Values.imagePullPolicy }}
+      #   command: ["/bin/sh"]
+      #   args: ["-c", "chgrp -R {{ .Values.securityContext.fsGroup }} /var/lib/postgresql/data"]
+      #   volumeMounts:
+      #   - name: database-data
+      #     mountPath: /var/lib/postgresql/data
       - name: "remove-lost-found"
         image: {{ .Values.database.internal.image.repository }}:{{ .Values.database.internal.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
@@ -52,13 +52,19 @@ spec:
         livenessProbe:
           exec:
             command:
-            - /docker-healthcheck.sh
+            - bash
+            - "-c"
+            - |
+              pg_isready -U postgres
           initialDelaySeconds: 60
           periodSeconds: 10
         readinessProbe:
           exec:
             command:
-            - /docker-healthcheck.sh
+            - bash
+            - "-c"
+            - |
+              pg_isready -U postgres
           initialDelaySeconds: 1
           periodSeconds: 10
 {{- if .Values.database.internal.resources }}

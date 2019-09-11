@@ -2,7 +2,7 @@ expose:
   # Set the way how to expose the service. Set the type as "ingress",
   # "clusterIP", "nodePort" or "loadBalancer" and fill the information
   # in the corresponding section
-  type: ingress
+  type: clusterIP
   tls:
     # Enable the tls or not. Note: if the type is "ingress" and the tls
     # is disabled, the port must be included in the command when pull/push
@@ -22,7 +22,7 @@ expose:
     notarySecretName: ""
     # The common name used to generate the certificate, it's necessary
     # when the type isn't "ingress" and "secretName" is null
-    commonName: ""
+    commonName: "harbor"
   ingress:
     hosts:
       core: core.harbor.domain
@@ -97,7 +97,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: https://core.harbor.domain
+externalURL: https://testing.harbor.us.amazeeio.cloud
 
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamicly.
@@ -110,7 +110,7 @@ persistence:
   enabled: true
   # Setting it to "keep" to avoid removing PVCs during a helm delete
   # operation. Leaving it empty will delete PVCs after the chart deleted
-  resourcePolicy: "keep"
+  resourcePolicy: ""
   persistentVolumeClaim:
     registry:
       # Use the existing PVC which must be created manually before bound,
@@ -461,8 +461,8 @@ database:
   type: internal
   internal:
     image:
-      repository: goharbor/harbor-db
-      tag: dev
+      repository: cdchris12/harbor-postgres
+      tag: "9.6"
     # The initial superuser password for internal database
     password: "changeit"
     # resources:
@@ -518,4 +518,6 @@ redis:
     chartmuseumDatabaseIndex: "3"
     password: ""
   ## Additional deployment annotations
-  podAnnotations: {}
+securityContext:
+  fsGroup: "1001450000"
+  runAsUser: "1001450000"

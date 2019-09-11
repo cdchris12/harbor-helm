@@ -31,7 +31,7 @@ spec:
 {{- end }}
     spec:
       securityContext:
-        fsGroup: 10000
+        fsGroup: {{ .Values.securityContext.fsGroup }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
