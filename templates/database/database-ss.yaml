@@ -30,14 +30,6 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-      # - name: "change-permission-of-directory"
-      #   image: "busybox:latest"
-      #   imagePullPolicy: {{ .Values.imagePullPolicy }}
-      #   command: ["/bin/sh"]
-      #   args: ["-c", "chgrp -R {{ .Values.securityContext.fsGroup }} /var/lib/postgresql/data"]
-      #   volumeMounts:
-      #   - name: database-data
-      #     mountPath: /var/lib/postgresql/data
       - name: "remove-lost-found"
         image: {{ .Values.database.internal.image.repository }}:{{ .Values.database.internal.image.tag }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}

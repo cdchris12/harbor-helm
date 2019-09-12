@@ -345,8 +345,8 @@ jobservice:
 registry:
   registry:
     image:
-      repository: goharbor/registry-photon
-      tag: dev
+      repository: cdchris12/harbor-registry
+      tag: dev1.6
 
     # resources:
     #  requests:
@@ -354,8 +354,8 @@ registry:
     #    cpu: 100m
   controller:
     image:
-      repository: goharbor/harbor-registryctl
-      tag: dev
+      repository: cdchris12/harbor-registryctl
+      tag: dev1
 
     # resources:
     #  requests:
@@ -518,6 +518,3 @@ redis:
     chartmuseumDatabaseIndex: "3"
     password: ""
   ## Additional deployment annotations
-securityContext:
-  fsGroup: "1001450000"
-  runAsUser: "1001450000"

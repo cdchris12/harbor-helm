@@ -24,8 +24,6 @@ spec:
 {{ toYaml .Values.notary.podAnnotations | indent 8 }}
 {{- end }}
     spec:
-      securityContext:
-        fsGroup: {{ .Values.securityContext.fsGroup }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

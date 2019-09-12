@@ -20,8 +20,6 @@ spec:
       annotations:
         checksum/secret: {{ include (print $.Template.BasePath "/notary/notary-secret.yaml") . | sha256sum }}
     spec:
-      securityContext:
-        fsGroup: {{ .Values.securityContext.fsGroup }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
