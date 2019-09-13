@@ -144,6 +144,7 @@ data:
       db: {{ template "harbor.redis.registryDatabaseIndex" . }}
     http:
       addr: :5000
+      relativeurls: {{ .Values.registry.relativeurls }}
       # set via environment variable
       # secret: placeholder
       debug:

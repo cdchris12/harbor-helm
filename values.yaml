@@ -25,8 +25,8 @@ expose:
     commonName: ""
   ingress:
     hosts:
-      core: core.harbor.domain
-      notary: notary.harbor.domain
+      core: harbor-test-core.us.amazee.io
+      notary: harbor-test-harbor.us.amazee.io
     # set to the type of ingress controller if it has specific requirements.
     # leave as `default` for most ingress controllers.
     # set to `gce` if using the GCE ingress controller
@@ -97,7 +97,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: https://testing.harbor.us.amazeeio.cloud
+externalURL: https://harbor-test-core.us.amazee.io
 
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamicly.
@@ -373,6 +373,8 @@ registry:
   # If a secret key is not specified, Helm will generate one.
   # Must be a string of 16 chars.
   secret: ""
+  # This needs to be true when expose.type is not ingress
+  relativeurls: true
   middleware:
     enabled: false
     type: cloudFront
@@ -411,7 +413,7 @@ clair:
   replicas: 1
   # The interval of clair updaters, the unit is hour, set to 0 to
   # disable the updaters
-  updatersInterval: 12
+  updatersInterval: 1
   # resources:
   #  requests:
   #    memory: 256Mi
