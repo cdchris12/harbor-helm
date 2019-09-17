@@ -8,7 +8,7 @@ expose:
     # is disabled, the port must be included in the command when pull/push
     # images. Refer to https://github.com/goharbor/harbor/issues/5291
     # for the detail.
-    enabled: true
+    enabled: false
     # Fill the name of secret if you want to use your own TLS certificate.
     # The secret must contain keys named:
     # "tls.crt" - the certificate
@@ -281,7 +281,7 @@ nginx:
 
 portal:
   image:
-    repository: goharbor/harbor-portal
+    repository: cdchris12/harbor-portal
     tag: dev
   replicas: 1
 # resources:
@@ -296,8 +296,8 @@ portal:
 
 core:
   image:
-    repository: goharbor/harbor-core
-    tag: dev
+    repository: cdchris12/harbor-core
+    tag: v1.9.0-dev
   replicas: 1
 # resources:
 #  requests:
@@ -319,10 +319,11 @@ core:
   # "tls.key" - the private key
   # The default key pair will be used if it isn't set
   secretName: ""
+  relativeurls: true
 
 jobservice:
   image:
-    repository: goharbor/harbor-jobservice
+    repository: cdchris12/harbor-jobservice
     tag: dev
   replicas: 1
   maxJobWorkers: 10
@@ -428,7 +429,7 @@ notary:
   enabled: true
   server:
     image:
-      repository: goharbor/notary-server-photon
+      repository: cdchris12/notary-server-photon
       tag: dev
     replicas: 1
     # resources:
@@ -437,7 +438,7 @@ notary:
     #    cpu: 100m
   signer:
     image:
-      repository: goharbor/notary-signer-photon
+      repository: cdchris12/notary-signer-photon
       tag: dev
     replicas: 1
     # resources:
@@ -500,7 +501,7 @@ redis:
   type: internal
   internal:
     image:
-      repository: goharbor/redis-photon
+      repository: cdchris12/redis-photon
       tag: dev
     # resources:
     #  requests:
