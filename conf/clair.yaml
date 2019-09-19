@@ -18,4 +18,4 @@ clair:
     attempts: 3
     renotifyinterval: 2h
     http:
-      endpoint: "http://{{ template "harbor.core" . }}/service/notifications/clair"
+      endpoint: "http://{{ template "harbor.core" . }}/service/notifications"
